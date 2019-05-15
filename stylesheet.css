@@ -1,7 +1,36 @@
 body {
-	background-color: #1A6A61;
+	background-color: #1BAA97;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	font-family: 'Frank Ruhl Libre', serif;
+}
+
+div {
+	/*border: 1px solid red;*/
 }
 
 .warning{
   border: 2px solid red;
+}
+
+.list {
+	width: 90%;
+	margin: 0 auto;
+}
+
+table {
+	width: 90%;
+	margin: 20px auto;
+	border-collapse: collapse;
+}
+
+table, td, th {
+	border: solid 1px black;
+	padding: 10px;
+}
+
+input {
+	margin-right: 10px;
 }

@@ -23,6 +23,8 @@ class List extends React.Component {
         let updatedList = this.state.list;
         let classChange = "warning";
         let classReset = "";
+        let date = moment().format("D MMMM YYYY");
+        let newEntry = [this.state.word, date];
 
         if (this.state.word.length < 1) {
             this.setState({className: classChange});
@@ -33,7 +35,7 @@ class List extends React.Component {
             alert("Your todo item should be less than 200 characters");
         }
         else {
-            updatedList.push(this.state.word);
+            updatedList.push(newEntry);
             this.setState({word: clearWord, list: updatedList, className: classReset});
         }
     }
@@ -47,28 +49,42 @@ class List extends React.Component {
 
     render() {
     // render the list with a map() here
-        console.log("rendering");
+    console.log("rendering");
+
+    let listItems = this.state.list.map((item, index) =>{
+        return (
+            <tr key={index} id={index}>
+                <td>{index+1}</td>
+                <td>{item[0]}</td>
+                <td>{item[1]}</td>
+                <td>
+                    <button onClick={() => this.deleteHandler(index)}>remove item</button>
+                </td>
+            </tr>
+        )
+    })
+
         return (
             <div className="list">
                 <input onChange={this.changeHandler} value={this.state.word} className={this.state.className}/>
                 <button onClick={this.submitHandler}>add item</button>
-                <br/>
-                <ul>
-                    {this.state.list.map((item, index) => <li key={index} id={index}>{item}&nbsp;&nbsp;<button onClick={() => this.deleteHandler(index)}>remove item</button></li>)}
-                </ul>
+                <table>
+                <thead>
+                    <tr>
+                        <th>SN.</th>
+                        <th>Item</th>
+                        <th>Date Created</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {listItems}
+                </tbody>
+                </table>
             </div>
         );
     }
 }
-
-// class DeleteButton extends React.Component{
-//     render(){
-
-//         return(
-//             <button onClick={this.deleteHandler}>remove item</button>
-//         );
-//     }
-// }
 
 ReactDOM.render(
     <List/>,
