@@ -61,7 +61,7 @@ class List extends React.Component {
         return (
             <tr key={index} id={index}>
                 <td>{index+1}</td>
-                <td>{item[0]}</td>
+                <td><EditableLabel value={item[0]}/></td>
                 <td>{item[1]}</td>
                 <td>
                     <button onClick={() => this.deleteHandler(index)}>remove item</button>
@@ -121,66 +121,60 @@ class Clock extends React.Component {
     return (
       <div>
         <h2>It's time to take charge of your life.</h2>
-        <h3>{this.state.date.toLocaleTimeString()}.</h3>
+        <h3>{this.state.date.toLocaleTimeString('en-SG')}.</h3>
       </div>
     );
   }
 }
 
-// class EditableLabel extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             text: props.value,
-//             editing: false
-//         };
-//         this.initEditor();
-//         this.save = this.save.bind(this);
-//     }
+class EditableLabel extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: props.value,
+            editing: false
+        };
+        this.initEditor();
+        this.save = this.save.bind(this);
+    }
 
-//     initEditor() {
-//         this.editor = <input type="text" defaultValue={this.state.text} onKeyPress={(event) => {
-//             const key = event.which || event.keyCode;
-//             //enter key
-//             if (key === 13) {
-//                 this.save(event.target.value)
-//             }
-//         }} autoFocus={true}/>;
-//     }
+    initEditor() {
+        this.editor = <input type="text" defaultValue={this.state.text} onKeyPress={(event) => {
+            // const key = event.which || event.keyCode;
+            if (event.which === 13) {
+                this.save(event.target.value)
+            }
+        }} autoFocus={true}/>;
+    }
 
-//     edit() {
-//         this.setState({
-//             text: this.state.text,
-//             editing: true
-//         })
-//     };
+    edit() {
+        this.setState({
+            text: this.state.text,
+            editing: true
+        })
+    };
 
-//     save(value) {
-//         this.setState({
-//             text: value,
-//             editing: false
-//         })
-//     };
+    save(value) {
+        this.setState({
+            text: value,
+            editing: false
+        })
+    };
 
-//     componentDidUpdate() {
-//         this.initEditor();
-//     }
+    componentDidUpdate() {
+        this.initEditor();
+    }
 
-//     render() {
-//             if (this.state.editing) {
-//                  return (this.editor);
-//             } else {
-//                 return (
-//                     <p onClick={() => this.edit()}>{this.state.text}</p>
-//                 );
-
-//             }
-
-//         // this.state.editing ?
-//         //     this.editor
-//         //     : <p onClick={() => this.edit()}>{this.state.text}</p>
-//     }
-// }
+    render() {
+        if (this.state.editing) {
+             return (this.editor);
+        } else {
+            return (
+                <p onClick={() => this.edit()}>{this.state.text}</p>
+            );
+        }
+    }
+}
 
 ReactDOM.render(
     <div>
