@@ -18,9 +18,10 @@ class List extends React.Component {
     submitHandler = (event) => {
         console.log("word", this.state.word);
         console.log("list", this.state.list);
+        let clearWord = "";
         let updatedList = this.state.list;
         updatedList.push(this.state.word);
-        this.setState({list: updatedList});
+        this.setState({word: clearWord, list: updatedList});
     }
 
     render() {
