@@ -64,7 +64,7 @@ class List extends React.Component {
                 <td><EditableLabel value={item[0]}/></td>
                 <td>{item[1]}</td>
                 <td>
-                    <button onClick={() => this.deleteHandler(index)}>remove item</button>
+                    <button className="removeButton" onClick={() => this.deleteHandler(index)}>remove item</button>
                 </td>
             </tr>
         )
@@ -72,8 +72,12 @@ class List extends React.Component {
 
         return (
             <div className="list">
-                <input onChange={() => this.changeHandler(event)} value={this.state.word} className={this.state.className} onKeyDown={() => this.enterHandler(event)}/>
-                <button onClick={() => this.submitHandler(event)}>add item</button>
+                <div className="Wrapper">
+                <div className="Input">
+                    <input type="text" id="input" className="Input-text" placeholder="Enter your todo item here" onChange={() => this.changeHandler(event)} value={this.state.word} onKeyDown={() => this.enterHandler(event)} />
+                    <label htmlFor="input" className="Input-label">Hit enter to save</label>
+                </div>
+                </div>
                 <table>
                 <thead>
                     <tr>
@@ -119,9 +123,9 @@ class Clock extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>It's time to take charge of your life.</h2>
-        <h3>{this.state.date.toLocaleTimeString('en-SG')}.</h3>
+      <div className="clock">
+        <h1>It's time to take charge of your life.</h1>
+        <h2>{this.state.date.toLocaleTimeString('en-SG')}.</h2>
       </div>
     );
   }
@@ -144,7 +148,7 @@ class EditableLabel extends React.Component {
             if (event.which === 13) {
                 this.save(event.target.value)
             }
-        }} autoFocus={true}/>;
+        }} autoFocus={true} className="Input-text"/>;
     }
 
     edit() {
@@ -167,7 +171,7 @@ class EditableLabel extends React.Component {
 
     render() {
         if (this.state.editing) {
-             return (this.editor);
+            return (this.editor);
         } else {
             return (
                 <p onClick={() => this.edit()}>{this.state.text}</p>
@@ -183,3 +187,5 @@ ReactDOM.render(
     </div>,
     document.getElementById('root')
 );
+
+// <button onClick={() => this.submitHandler(event)}>add item</button>
