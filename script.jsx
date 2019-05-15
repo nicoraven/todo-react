@@ -41,30 +41,9 @@ class List extends React.Component {
         }
     }
 
-    submitHandler2 = (event) => {
+    enterHandler = (event) => {
         if (event.keyCode === 13) {
-            console.log("word", this.state.word.length);
-            console.log("list", this.state.list);
-
-            let clearWord = "";
-            let updatedList = this.state.list;
-            let classChange = "warning";
-            let classReset = "";
-            let date = moment().format("D MMMM YYYY");
-            let newEntry = [this.state.word, date];
-
-            if (this.state.word.length < 1) {
-                this.setState({className: classChange});
-                alert("Please enter a todo item");
-            }
-            else if (this.state.word.length > 200){
-                this.setState({className: classChange});
-                alert("Your todo item should be less than 200 characters");
-            }
-            else {
-                updatedList.push(newEntry);
-                this.setState({word: clearWord, list: updatedList, className: classReset});
-            }
+            this.submitHandler();
         }
     }
 
@@ -94,7 +73,7 @@ class List extends React.Component {
 
         return (
             <div className="list">
-                <input onChange={this.changeHandler} value={this.state.word} className={this.state.className} onKeyDown={this.submitHandler2}/>
+                <input onChange={this.changeHandler} value={this.state.word} className={this.state.className} onKeyDown={this.enterHandler}/>
                 <button onClick={this.submitHandler}>add item</button>
                 <table>
                 <thead>
