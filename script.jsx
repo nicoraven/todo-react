@@ -7,6 +7,7 @@ class ToDoApp extends React.Component {
 
     state = {
         list : [],
+        deletedList : [],
         word : "",
         className : ""
     }
@@ -51,10 +52,18 @@ class ToDoApp extends React.Component {
 
     deleteHandler = (index) => {
         console.log("index", index);
+
         let updatedList = this.state.list;
+        let removedItem = updatedList.slice(index, index+1);
         updatedList.splice(index,1);
-    //    console.log("new list", updatedList);
+        console.log("removed ", removedItem);
         this.setState({list: updatedList});
+        this.addDeleted(removedItem);
+    }
+
+    addDeleted = (item) => {
+        console.log("deleted", item)
+        this.setState({deletedList: [...this.state.deletedList, item[0]]});
     }
 
     editText = (index, text) => {
@@ -87,18 +96,47 @@ class ToDoApp extends React.Component {
         return (
             <div className="list">
                 <div className="Wrapper">
-                <div className="Input">
-                    <input type="text" id="input" className="Input-text" placeholder="Enter your todo item here" onChange={() => this.changeHandler(event)} value={this.state.word} onKeyDown={() => this.enterHandler(event)} />
-                    <label htmlFor="input" className="Input-label">Hit enter to save</label>
-                </div>
-                </div>
-                <div className="table">
-                <div>
-                    <div className="header">things to do.</div>
-                </div>
-                    {listItems}
+                    <div className="Input">
+                        <input type="text" id="input" className="Input-text" placeholder="Enter your todo item here" onChange={() => this.changeHandler(event)} value={this.state.word} onKeyDown={() => this.enterHandler(event)} />
+                        <label htmlFor="input" className="Input-label">Hit enter to save</label>
+                    </div>
+                    </div>
+                    <div className="table">
+                    <div>
+                        <div className="header">things to do.</div>
+                    </div>
+                    <div>
+                        {listItems}
+                    </div>
+                    <div>
+                        <div className="header">things that have been archived.</div>
+                    </div>
+                    <DeletedItems list={this.state.deletedList}/>
                 </div>
 
+            </div>
+        );
+    }
+}
+
+class DeletedItems extends React.Component {
+    render(){
+        let listItems = this.props.list.map((item, index) =>{
+            console.log("archived ", item )
+            return (
+                <div className="card" key={index} id={index} draggable="true">
+                    <EditableLabel
+                        index={index}
+                        text={item[0]}
+                    />
+                    <p className="createdDate">date added<br/>{item[1]}</p>
+                </div>
+            )
+        })
+
+        return(
+            <div>
+                {listItems}
             </div>
         );
     }
@@ -197,7 +235,6 @@ class Clock extends React.Component {
 
 ReactDOM.render(
     <div>
-        <Clock/>
         <ToDoApp/>
     </div>,
     document.getElementById('root')
