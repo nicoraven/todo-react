@@ -1,7 +1,8 @@
-class List extends React.Component {
+class ToDoApp extends React.Component {
     constructor(){
         super();
         this.deleteHandler = this.deleteHandler.bind(this);
+        this.editText = this.editText.bind(this);
     }
 
     state = {
@@ -35,8 +36,9 @@ class List extends React.Component {
             alert("Your todo item should be less than 200 characters");
         }
         else {
-            updatedList.push(newEntry);
-            this.setState({word: clearWord, list: updatedList});
+            // updatedList.push(newEntry);
+            // this.setState({word: clearWord, list: updatedList});
+            this.setState({word: clearWord, list: [...this.state.list, newEntry]});
             console.log(this.state.list);
         }
     }
@@ -55,6 +57,14 @@ class List extends React.Component {
         this.setState({list: updatedList});
     }
 
+    editText = (index, text) => {
+        let updateList = this.state.list;
+        console.log("Editing "+ updateList[index][0]);
+        updateList[index][0] = text;
+        console.log("updating", text);
+        this.setState({list: updateList});
+    }
+
     render() {
     // render the list with a map() here
     console.log("rendering");
@@ -62,13 +72,15 @@ class List extends React.Component {
     let listItems = this.state.list.map((item, index) =>{
         console.log(index, item);
         return (
-            <tr key={index} id={index} draggable="true">
-                <td>
-                    <p>{item[0]}</p>
-                    <p className="createdDate">date added<br/>{item[1]}</p>
-                    <button className="removeButton" onClick={() => this.deleteHandler(index)}>remove</button>
-                </td>
-            </tr>
+            <div className="card" key={index} id={index} draggable="true">
+                <EditableLabel
+                    index={index}
+                    text={item[0]}
+                    editText={this.editText}
+                />
+                <p className="createdDate">date added<br/>{item[1]}</p>
+                <button className="removeButton" onClick={() => this.deleteHandler(index)}>remove</button>
+            </div>
         )
     })
 
@@ -80,18 +92,59 @@ class List extends React.Component {
                     <label htmlFor="input" className="Input-label">Hit enter to save</label>
                 </div>
                 </div>
-                <table>
-                <thead>
-                    <tr>
-                        <th>things to do.</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <div className="table">
+                <div>
+                    <div className="header">things to do.</div>
+                </div>
                     {listItems}
-                </tbody>
-                </table>
+                </div>
+
             </div>
         );
+    }
+}
+
+class EditableLabel extends React.Component {
+
+    constructor(){
+        super();
+        this.state = {
+            editing: false
+        };
+    }
+
+    editMode = (event) => {
+        this.setState({editing: true});
+    }
+
+    commitEdit = (event) => {
+        this.props.editText(this.props.index, event.target.value);
+        this.setState({editing: false});
+    }
+
+    render(){
+
+        if (this.state.editing) {
+            return (
+                <textarea defaultValue={this.props.text}
+                autoFocus={true}
+                className="Input-edit"
+                onKeyDown={(event) => {
+                    const key = event.which || event.keyCode;
+                    if (key === 13) {
+                        this.commitEdit(event)
+                    }
+                }}
+                onBlur={(event) => {this.commitEdit(event)}}
+                />
+
+            );
+        }
+        else {
+            return (
+                <p className="cardText" onClick={(event) => this.editMode(event)}>{this.props.text}</p>
+            );
+        }
     }
 }
 
@@ -133,7 +186,7 @@ class Clock extends React.Component {
 ReactDOM.render(
     <div>
         <Clock/>
-        <List/>
+        <ToDoApp/>
     </div>,
     document.getElementById('root')
 );

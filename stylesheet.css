@@ -72,12 +72,13 @@ table {
 	font-size: 20px;
 }
 
-th, {
-	border: solid 1px black;
+.header {
+	border: none;
 	padding: 10px;
+	font-size: 30px;
 }
 
-td {
+.card {
 	max-width: 100%;
 	background-color: #FFFFFF;
 	display: block;
@@ -88,6 +89,10 @@ td {
   position: relative;
 }
 
+.cardText{
+	font-size: 22px;
+}
+
 .Input-edit {
   margin: 0;
   padding: 10px 20px;
@@ -95,7 +100,7 @@ td {
   border: none;
   border-radius: 0.4rem;
   font-family: inherit;
-  font-size: inherit;
+  font-size: 22px;
   font-weight: inherit;
   line-height: inherit;
   text-align: center;
