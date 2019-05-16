@@ -117,6 +117,18 @@ class EditableLabel extends React.Component {
         this.setState({editing: true});
     }
 
+    validateEdit = (event) => {
+        if (event.target.value.length < 1) {
+            alert("Your edited item is too short!");
+        }
+        else if (event.target.value.length > 200){
+            alert("Your edited item should be less than 200 characters");
+        }
+        else {
+            this.commitEdit(event);
+        }
+    }
+
     commitEdit = (event) => {
         this.props.editText(this.props.index, event.target.value);
         this.setState({editing: false});
@@ -132,10 +144,10 @@ class EditableLabel extends React.Component {
                 onKeyDown={(event) => {
                     const key = event.which || event.keyCode;
                     if (key === 13) {
-                        this.commitEdit(event)
+                        this.validateEdit(event)
                     }
                 }}
-                onBlur={(event) => {this.commitEdit(event)}}
+                onBlur={(event) => {this.validateEdit(event)}}
                 />
 
             );
