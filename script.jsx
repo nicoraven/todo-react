@@ -102,14 +102,9 @@ class ToDoApp extends React.Component {
                     </div>
                     </div>
                     <div className="table">
-                    <div>
+                    <div className="board">
                         <div className="header">things to do.</div>
-                    </div>
-                    <div>
                         {listItems}
-                    </div>
-                    <div>
-                        <div className="header">things that have been archived.</div>
                     </div>
                     <DeletedItems list={this.state.deletedList}/>
                 </div>
@@ -125,17 +120,15 @@ class DeletedItems extends React.Component {
             console.log("archived ", item )
             return (
                 <div className="card" key={index} id={index} draggable="true">
-                    <EditableLabel
-                        index={index}
-                        text={item[0]}
-                    />
+                    <p className="cardText">{item[0]}</p>
                     <p className="createdDate">date added<br/>{item[1]}</p>
                 </div>
             )
         })
 
         return(
-            <div>
+            <div className="board">
+                <div className="header">things that have been archived.</div>
                 {listItems}
             </div>
         );
@@ -235,6 +228,7 @@ class Clock extends React.Component {
 
 ReactDOM.render(
     <div>
+        <Clock />
         <ToDoApp/>
     </div>,
     document.getElementById('root')
