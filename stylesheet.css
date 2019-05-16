@@ -37,7 +37,7 @@ div {
 }
 
 #root {
-	width: 70%;
+	width: 85%;
 	margin: 0 auto;
 	/*border: solid 2px blue;*/
 }
@@ -47,13 +47,14 @@ div {
 }
 
 .list {
-	width: 90%;
+	width: 100%;
 	margin: 0 auto;
 }
 
 .clock{
+	width: 80%;
 	font-family: 'Dosis';
-	margin: 30px 0 60px 0;
+	margin: 30px auto 60px auto;
 }
 
 .clock>h1 {
@@ -71,29 +72,77 @@ table {
 	font-size: 20px;
 }
 
-table, td, th {
+th, {
 	border: solid 1px black;
 	padding: 10px;
 }
 
-.removeButton {
-	padding: 10px 10px;
-	/*width: 100%;*/
-	font-family: inherit;
-	font-size: 22px;
-	border: none;
-	border-radius: 0.4rem;
-	display: inline-block;
+td {
+	max-width: 100%;
+	background-color: #FFFFFF;
+	display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0.4rem;
+  position: relative;
 }
 
-.removeButton:hover {
+.Input-edit {
+  margin: 0;
+  padding: 10px 20px;
+  width: 70%;
+  border: none;
+  border-radius: 0.4rem;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: center;
+  overflow: auto;
+  min-height: 60px;
+}
+
+.Input-edit:focus {
+  outline: none;
+  min-height: 60px;
+}
+
+.createdDate {
+	font-size: 16px;
+	margin: 0;
+	display: block;
+  position: absolute;
+  top: 10%;
+  left: 4%;
+}
+
+.removeButton {
+	/*padding: 10px 10px;*/
+	/*width: 100%;*/
+	font-family: inherit;
+	font-size: 18px;
+	border: none;
+	border-radius: 0.4rem;
+	margin: 0;
+	position: absolute;
+	bottom: 10%;
+  right: 4%;
+  outline: none;
+}
+
+.listText {
+	margin: 10px 70px;
+	padding-left: 20px;
+}
+
+/*.removeButton:hover {
 	box-sizing: border-box;
   outline: none;
   position: relative;
   top: 3px;
-  box-shadow: 0.2rem 0.8rem 1.6rem var(--colorPrimary600);
 }
-
+*/
 /*
 ********************
 ********************
@@ -167,6 +216,8 @@ table, td, th {
 
 .Input {
   position: relative;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .Input-text {

@@ -26,16 +26,16 @@ class List extends React.Component {
         let newEntry = [this.state.word, date];
 
         if (this.state.word.length < 1) {
-            this.setState({className: classChange});
+            // this.setState({className: classChange});
             alert("Please enter a todo item");
         }
         else if (this.state.word.length > 200){
-            this.setState({className: classChange});
+            // this.setState({className: classChange});
             alert("Your todo item should be less than 200 characters");
         }
         else {
             updatedList.push(newEntry);
-            this.setState({word: clearWord, list: updatedList, className: classReset});
+            this.setState({word: clearWord, list: updatedList});
             console.log(this.state.list);
         }
     }
@@ -47,9 +47,10 @@ class List extends React.Component {
     }
 
     deleteHandler = (index) => {
+        console.log("index", index);
         let updatedList = this.state.list;
         updatedList.splice(index,1);
-        // console.log(updatedList);
+        console.log("new list", updatedList);
         this.setState({list: updatedList});
     }
 
@@ -58,13 +59,14 @@ class List extends React.Component {
     console.log("rendering");
 
     let listItems = this.state.list.map((item, index) =>{
+        console.log(index, item);
         return (
-            <tr key={index} id={index}>
-                <td>{index+1}</td>
-                <td><EditableLabel value={item[0]}/></td>
-                <td>{item[1]}</td>
+            <tr key={index} id={index} draggable="true">
                 <td>
-                    <button className="removeButton" onClick={() => this.deleteHandler(index)}>remove</button>
+                    <EditableLabel value={item[0]}/>
+                    <p className="createdDate">date added<br/>{item[1]}</p>
+                    <p>{index}</p>
+                    <button className="removeButton" onClick={() => this.deleteHandler(index)}>remove {index}</button>
                 </td>
             </tr>
         )
@@ -81,10 +83,7 @@ class List extends React.Component {
                 <table>
                 <thead>
                     <tr>
-                        <th>SN.</th>
-                        <th>Item</th>
-                        <th>Date Created</th>
-                        <th>Action</th>
+                        <th>things to do.</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -143,12 +142,12 @@ class EditableLabel extends React.Component {
     }
 
     initEditor() {
-        this.editor = <input type="text" defaultValue={this.state.text} onKeyPress={(event) => {
+        this.editor = <textarea defaultValue={this.state.text} onKeyPress={(event) => {
             // const key = event.which || event.keyCode;
             if (event.which === 13) {
                 this.save(event.target.value)
             }
-        }} autoFocus={true} className="Input-text"/>;
+        }} autoFocus={true} className="Input-edit"/>;
     }
 
     edit() {
@@ -159,10 +158,16 @@ class EditableLabel extends React.Component {
     };
 
     save(value) {
-        this.setState({
-            text: value,
-            editing: false
-        })
+        if (value.length < 3) {
+            // this.setState({className: classChange});
+            alert("Your todo item is too short.");
+        }
+        else {
+            this.setState({
+                text: value,
+                editing: false
+            })
+        }
     };
 
     componentDidUpdate() {
@@ -174,7 +179,7 @@ class EditableLabel extends React.Component {
             return (this.editor);
         } else {
             return (
-                <p onClick={() => this.edit()}>{this.state.text}</p>
+                <p className="listText" onClick={() => this.edit()}>{this.state.text}</p>
             );
         }
     }
