@@ -3,6 +3,9 @@ class ToDoApp extends React.Component {
         super();
         this.deleteHandler = this.deleteHandler.bind(this);
         this.editText = this.editText.bind(this);
+        this.dragStart = this.dragStart.bind(this);
+        this.drop = this.drop.bind(this);
+        this.allowDrop = this.allowDrop.bind(this);
     }
 
     state = {
@@ -74,6 +77,21 @@ class ToDoApp extends React.Component {
         this.setState({list: updateList});
     }
 
+    // Drag functions
+    allowDrop = (allowdropevent) => {
+        allowdropevent.preventDefault();
+    }
+
+    dragStart = (dragevent) => {
+        dragevent.dataTransfer.setData("item", dragevent.target.id);
+    }
+
+    drop = (dropevent) => {
+        dropevent.preventDefault();
+        var data = dropevent.dataTransfer.getData("item");
+        dropevent.target.appendChild(document.getElementById(data));
+    }
+
     render() {
     // render the list with a map() here
     console.log("rendering");
@@ -81,7 +99,7 @@ class ToDoApp extends React.Component {
     let listItems = this.state.list.map((item, index) =>{
         console.log(index, item);
         return (
-            <div className="card" key={index} id={index} draggable="true">
+            <div className="card" key={index} id={index} draggable="true" onDragStart={this.dragStart}>
                 <EditableLabel
                     index={index}
                     text={item[0]}
@@ -102,11 +120,16 @@ class ToDoApp extends React.Component {
                     </div>
                     </div>
                     <div className="table">
-                    <div className="board">
+                    <div className="board" onDrop={this.drop} onDragOver={this.allowDrop} >
                         <div className="header">things to do.</div>
                         {listItems}
                     </div>
-                    <DeletedItems list={this.state.deletedList}/>
+                    <DeletedItems
+                        list={this.state.deletedList}
+                        drop={this.drop}
+                        dragStart={this.dragStart}
+                        allowDrop={this.allowDrop}
+                    />
                 </div>
 
             </div>
@@ -119,7 +142,7 @@ class DeletedItems extends React.Component {
         let listItems = this.props.list.map((item, index) =>{
             console.log("archived ", item )
             return (
-                <div className="card" key={index} id={index} draggable="true">
+                <div className="card" key={index} id={index} draggable="true" onDragStart={this.props.dragStart}>
                     <p className="cardText">{item[0]}</p>
                     <p className="createdDate">date added<br/>{item[1]}</p>
                 </div>
@@ -127,7 +150,7 @@ class DeletedItems extends React.Component {
         })
 
         return(
-            <div className="board">
+            <div className="board" onDrop={this.props.drop} onDragOver={this.props.allowDrop} >
                 <div className="header">things that have been archived.</div>
                 {listItems}
             </div>

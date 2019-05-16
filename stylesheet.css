@@ -74,8 +74,18 @@ table {
 
 .header {
 	border: none;
+	border-radius: 0.4rem;
 	padding: 10px;
 	font-size: 30px;
+	/*background-color: #FFFFFF;*/
+	margin: 0 auto;
+}
+
+.board {
+	background-color: #DADADA;
+	border: none;
+  border-radius: 0.4rem;
+  margin-bottom: 30px;
 }
 
 .card {
