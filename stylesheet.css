@@ -1,35 +1,12 @@
-/*
-body {
-	background-color: #1BAA97;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-	font-family: 'Frank Ruhl Libre', serif;
-	font-family: 'Dosis';
-}
-*/
-
-/*html {
-  font-size: 10px;
-}*/
-
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  /*overflow: hidden;*/
-  /*width: 100vw;*/
-  /*height: 100vh;*/
-  /*color: #455A64;*/
   color: #000000;
-  background-color: #1BAA97;
+  /* background-color: #1BAA97; */
   font-family: 'Dosis';
-  /*font-family: var(--fontFamily);
-  font-size: var(--fontSizeMd);
-  line-height: var(--lineHeightMd);*/
 }
 
 div {
@@ -77,13 +54,12 @@ table {
 	border-radius: 0.4rem;
 	padding: 10px;
 	font-size: 30px;
-	/*background-color: #FFFFFF;*/
 	margin: 0 auto;
 }
 
 .board {
 	background-color: #DADADA;
-	border: none;
+	border: solid 2px var(--colorPrimary600);
   border-radius: 0.4rem;
   margin-bottom: 30px;
 }
@@ -176,9 +152,9 @@ table {
   --gutterLg: 1.6rem;
   --gutterXl: 2.4rem;
   --gutterXx: 7.2rem;
-  --colorPrimary400: #189987;
-  --colorPrimary600: #127669;
-  --colorPrimary800: #0a443c;
+  --colorPrimary400: #DFDFDF;
+  --colorPrimary600: #9B9B9B;
+  --colorPrimary800: #474747;
   --fontFamily: "Dosis", sans-serif;
   --fontSizeSm: 1.2rem;
   --fontSizeMd: 1.6rem;
@@ -245,7 +221,7 @@ table {
   font-size: 22px;
   font-weight: inherit;
   line-height: var(--inputLineHeight);
-  border: none;
+  border: solid 2px var(--colorPrimary600);
   border-radius: 0.4rem;
   transition: box-shadow var(--transitionDuration);
 }
@@ -264,7 +240,7 @@ table {
   position: absolute;
   bottom: 10%;
   left: 1rem;
-  color: #fff;
+  color: #000;
   font-family: inherit;
   font-size: 28px;
   font-weight: inherit;
