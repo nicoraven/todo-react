@@ -20,7 +20,7 @@ class ToDoApp extends React.Component {
             this.submitHandler();
         } else {
             this.setState({word:event.target.value});
-            console.log("change", event.target.value.length);
+            // console.log("change", event.target.value.length);
         }
     }
 
@@ -48,6 +48,12 @@ class ToDoApp extends React.Component {
             // this.setState({word: clearWord, list: updatedList});
             this.setState({word: clearWord, list: [...this.state.list, newEntry]});
             console.log(this.state.list);
+        }
+    }
+
+    enterHandler = (event) => {
+        if (event.keyCode === 13) {
+            this.submitHandler();
         }
     }
 
@@ -113,7 +119,7 @@ class ToDoApp extends React.Component {
             <div className="list">
                 <div className="Wrapper">
                     <div className="Input">
-                        <input type="text" id="input" className="Input-text" placeholder="Enter your todo item here" onChange={() => this.changeHandler(event)} value={this.state.word} />
+                        <input type="text" id="input" className="Input-text" placeholder="Enter your todo item here" onChange={() => this.changeHandler(event)} value={this.state.word} onKeyDown={() => this.enterHandler(event)} />
                         <label htmlFor="input" className="Input-label">Hit enter to save</label>
                     </div>
                     </div>
